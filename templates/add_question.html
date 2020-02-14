@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+
+{% block body%}
+<div id="add-question">
+
+    <form action="/add_question" method="POST">
+        <label for="title">Question title:</label>
+        <br>
+        <textarea required="required" cols="30" rows="1" id="title" name="title"></textarea>
+        <br>
+        <label for="message">Question:</label>
+        <br>
+        <textarea required='required' cols="30" rows="8" id="message" name="message"></textarea>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+
+</div>
+<a class="href" style="width: 1168px" href="list">Back to question list</a>
+{% endblock %}

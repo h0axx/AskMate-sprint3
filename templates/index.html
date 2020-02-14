@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div id="title-div">
+    <h2 id="title-header">AskMate - Q&A</h2>
+</div>
+
+<div class="topnav">
+    <a href="list">Questions list</a>
+</div>
+
+<br>
+<br>
+<h3 style=" text-align: center; ">Last questions</h3>
+<br>
+<table>
+    <tbody>
+    {% for record in questions %}
+    <tr>
+        <td><a class="href" href="question/{{record[0]}}">{{record[1]}}</a></td></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

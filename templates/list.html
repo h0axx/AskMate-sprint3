@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="topnav">
+    <a href="add_question">Add Question</a>
+    <a href="list">Reload list</a>
+    <form action='/list' method="GET">
+        <button type="submit">Search</button>
+    <input id="search" name="search" type="text">
+    </form>
+
+</div>
+
+            <table width="100%">
+                <thead>
+                    {% for title in titles %}
+                        <th>{{title}}</th>
+                    {% endfor %}
+                </thead>
+                <tbody>
+                    {% for record in questions[::-1] %}
+                    <tr>
+                        <td id="question-id"><a class="href" href="question/{{record[0]}}">{{record[0]}}</a></td>
+                        {% for data in record[1::] %}
+                            <td>{{data}}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        <br>
+<div id="sort-bar">
+        <form action="/list" method="get">
+          <select id="sort" name="sort">
+              <option value="" selected disabled hidden>SORT BY</option>
+              <option value="id">ID</option>
+              <option value="view_number">View number</option>
+              <option value="vote_number">Vote number</option>
+          </select>
+          <input type="submit" value="Sort">
+        </form>
+        <br>
+        <a class="href" style="width: 1168px" href="/">Back to main page</a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div style="text-align: center">
+
+<form action="/answer/{{id}}/vote" method="POST">
+    <button type="submit" name="button" value="up">Rate UP</button>
+</form>
+<form action="/answer/{{id}}/vote" method="POST">
+    <button type="submit" name="button" value="down">Rate DOWN</button>
+</form>
+
+</div>
+
+<a class="href" style="width: 1168px" href="/answer/{{id}}">Back to answer details</a>
+
+{% endblock %}

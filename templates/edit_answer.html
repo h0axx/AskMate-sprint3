@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div style="text-align: center">
+
+<form action="/answer/{{id}}/edit" method="POST">
+    <label for="message">Edit answer:</label>
+    <br>
+    <textarea required='required' cols="30" rows="8" id="message" name="message">{{answer[4]}}</textarea>
+    <br>
+    <button type="submit">Submit</button>
+</form>
+
+</div>
+<a class="href" style="width: 1168px" href="/answer/{{id}}">Back to answer details</a>
+
+{% endblock %}

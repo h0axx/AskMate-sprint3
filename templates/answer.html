@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="topnav">
+    <p style="padding: 10px 10px">Subbmited {{answer[index['TIMESTAMP']]}}</p>
+</div>
+
+<h4 style="padding-top: 20px; padding-bottom: 40px">{{answer[index['MESSAGE']]}}</h4>
+
+<div class="topnav">
+    <a href="/answer/{{id}}/vote">Vote answer</a>
+    <a href="/answer/{{id}}/delete">Delete answer</a>
+    <a href="/answer/{{id}}/edit">Edit answer</a>
+    <a href="/question/{{answer[index['QUESTION_ID']]}}">Go to question</a>
+</div>
+
+{% endblock %}

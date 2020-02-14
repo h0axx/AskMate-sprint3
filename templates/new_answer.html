@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div style="text-align: center">
+
+<form action="/question/{{id}}/new-answer" method="POST">
+    <label for="message">Answer:</label>
+    <br>
+    <textarea required='required' cols="30" rows="8" id="message" name="message"></textarea>
+    <br>
+    <button type="submit">Submit</button>
+</form>
+
+</div>
+<a class="href" style="width: 1168px" href="/question/{{id}}">Back to question details</a>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div style="text-align: center">
+<form action="/answer/{{id}}/delete" method="POST">
+    <button style="padding: 10px 30px" type="submit">Delete</button>
+</form>
+</div>
+
+<a class="href" style="width: 1168px" href="/answer/{{id}}">Back to answer details</a>
+
+{% endblock %}
