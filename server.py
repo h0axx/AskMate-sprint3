@@ -250,6 +250,15 @@ def edit_answer(id):
 @app.route('/registration', methods=['GET','POST'])
 def register():
 
+    if request.method == 'POST':
+
+        email = request.form['email']
+        username = request.form['username']
+        password = request.form['password']
+        user_id = database_manager.highest_user_id()
+
+        print(email,username,password,user_id)
+
     return render_template('registration.html', page_title = 'AskMate - Register')
 
 if __name__ == "__main__":

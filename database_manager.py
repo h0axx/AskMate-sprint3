@@ -27,6 +27,19 @@ def highest_answer_id(cursor):
     return highest_id
 
 @basic_db_usage.connection_handler
+def highest_user_id(cursor):
+    cursor.execute("""
+                    SELECT MAX(user_id) FROM users;
+                    """)
+    try:
+        highest_id = cursor.fetchall()[0][0]
+        highest_id += 1
+    except:
+        return 1
+
+    return highest_id
+
+@basic_db_usage.connection_handler
 def is_id_in_database(cursor,id):
 
 
