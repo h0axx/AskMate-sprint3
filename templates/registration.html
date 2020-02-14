@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="topnav">
+    <p> <h3 style="padding-left: 32px"> REGISTER </h3></p>
+</div>
+
+<div style="padding-left: 2%">
+    <form action="/registration" method="POST">
+        <label for="email">E-mail adress:</label>
+        <br>
+        <textarea required="required" cols="30" rows="1" id="email" name="email"></textarea>
+        <br>
+        <label for="username">Username:</label>
+        <br>
+        <textarea required='required' cols="30" rows="1" id="username" name="username"></textarea>
+        <br>
+        <label for="password">Password:</label>
+        <br>
+        <textarea required="required" cols="30" rows="1" id="password" name="password"></textarea>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+{% endblock %}

@@ -13,7 +13,7 @@ def index():
     return render_template('index.html', questions = last_five_questions,
                            page_title = 'AskMate')
 
-@app.route('/list')As   
+@app.route('/list')
 def list():
 
     question_file = database_manager.import_questions_for_list()
@@ -153,7 +153,6 @@ def delete_question(id):
 
     return redirect('list')
 
-
 @app.route('/question/<id>/vote', methods=['GET','POST'])
 def vote(id):
 
@@ -247,6 +246,11 @@ def edit_answer(id):
         return render_template('edit_answer.html', id=id, answer=answer)
 
     return redirect('/')
+
+@app.route('/registration', methods=['GET','POST'])
+def register():
+
+    return render_template('registration.html', page_title = 'AskMate - Register')
 
 if __name__ == "__main__":
     app.run(
