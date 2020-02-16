@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-import data_handling, util, database_manager
+import util, database_manager, hashing_utility
 from datetime import datetime
 
 app = Flask(__name__)
@@ -254,12 +254,18 @@ def register():
 
         email = request.form['email']
         username = request.form['username']
-        password = request.form['password']
         user_id = database_manager.highest_user_id()
+        password = hashing_utility.hash_password(request.form['password'])
 
-        print(email,username,password,user_id)
+        values = (user_id,email,username,password)
+        database_manager.add_user(values)
 
     return render_template('registration.html', page_title = 'AskMate - Register')
+
+@app.route('/login', methods=['GET','POST'])
+def login():
+
+    return render_template('login.html', page_title = 'AskMate - Login')
 
 if __name__ == "__main__":
     app.run(

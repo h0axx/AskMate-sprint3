@@ -222,3 +222,10 @@ def edit_answer(cursor,answer_id,message):
                     UPDATE answer
                     SET message = %s
                     WHERE id = %s;""",[message,answer_id])
+
+@basic_db_usage.connection_handler
+def add_user(cursor,values):
+    cursor.execute("""
+                    INSERT INTO users
+                    VALUES (%s,%s,%s,%s);""",
+                   (values[0],values[1],values[2],values[3]))
