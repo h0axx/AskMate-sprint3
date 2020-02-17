@@ -6,8 +6,14 @@
 </div>
 
 <div class="topnav">
-    <a href="list">Questions list</a>
+    {% if not logged %}
     <a href="registration">Register</a>
+    <a href="login">Login</a>
+    {% endif %}
+    <a href="list">Questions list</a>
+    {% if logged %}
+    <a href="logout">Logout</a>
+    {% endif %}
 </div>
 
 <br>

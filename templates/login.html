@@ -2,6 +2,23 @@
 
 {% block body %}
 
+<div class="topnav">
+    <p> <h3 style="padding-left: 32px"> LOGIN </h3></p>
+</div>
+
+<div style="padding-left: 2%">
+    <form action="/login" method="POST">
+        <label for="username">Username:</label>
+        <br>
+        <input type="text" required='required' maxlength="12" cols="30" rows="1" id="username" name="username"></input>
+        <br>
+        <label for="password">Password:</label>
+        <br>
+        <input type="password" required="required" minlength="8" maxlength="20" cols="30" rows="1" id="password" name="password"></input>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+</div>
 
 
 {% endblock %}

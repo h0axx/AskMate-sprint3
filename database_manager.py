@@ -229,3 +229,30 @@ def add_user(cursor,values):
                     INSERT INTO users
                     VALUES (%s,%s,%s,%s);""",
                    (values[0],values[1],values[2],values[3]))
+
+@basic_db_usage.connection_handler
+def is_user_in_db(cursor,username,email):
+    cursor.execute("""
+                    SELECT * FROM users
+                    WHERE username = %s OR email = %s; """,
+                   (username,email))
+
+    result = cursor.fetchall()
+
+    if result:
+        return True
+    else:
+        return False
+
+@basic_db_usage.connection_handler
+def grab_password_from_db(cursor,username):
+
+    cursor.execute("""
+                    SELECT password
+                    FROM users
+                    WHERE username = %s;""",
+                   (username,))
+
+    password = cursor.fetchall()[0][0]
+
+    return password
