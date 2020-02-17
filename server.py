@@ -2,11 +2,14 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask import session, escape
 import util, database_manager, hashing_utility
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 
+###################### SESSION SETTINGS ######################
 app.secret_key = b'\xa0\xd7\xe2\x8er\xd6\xd2\xd8\x8b\xce\xb3T'
+app.permanent_session_lifetime = timedelta(minutes=5)
+###############################################################
 
 
 @app.route('/')
@@ -16,8 +19,10 @@ def index():
 
     if 'username' in session:
 
+        username = session['username']
+
         return render_template('index.html', questions=last_five_questions,
-                               page_title='AskMate', logged=True )
+                               page_title='AskMate', logged=True, username=username )
 
     return render_template('index.html', questions = last_five_questions,
                            page_title = 'AskMate')
@@ -259,6 +264,9 @@ def edit_answer(id):
 @app.route('/registration', methods=['GET','POST'])
 def register():
 
+    if 'username' in session:
+        return redirect(url_for('index'))
+
     if request.method == 'POST':
 
         email = request.form['email']
@@ -282,11 +290,12 @@ def register():
 @app.route('/login', methods=['GET','POST'])
 def login():
 
+    if 'username' in session:
+        return redirect(url_for('index'))
 
     if request.method == 'POST':
 
         username = request.form['username']
-        session['username'] = username
 
         if database_manager.is_user_in_db(username,username):
 
@@ -295,15 +304,19 @@ def login():
 
             if hashing_utility.verify_password(password,hashedPassword):
 
+                session.permament = True
+                session['username'] = username
+
                 return redirect(url_for('index'))
 
-        return redirect(url_for('login', error='Wrong username or password'))
+        return render_template('login.html', error='Wrong username or password')
 
     return render_template('login.html', page_title = 'AskMate - Login')
 
 @app.route('/logout')
 def logout():
     # remove the username from the session if it's there
+    print(session)
     session.pop('username', None)
     return redirect(url_for('index'))
 

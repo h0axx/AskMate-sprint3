@@ -256,3 +256,16 @@ def grab_password_from_db(cursor,username):
     password = cursor.fetchall()[0][0]
 
     return password
+
+@basic_db_usage.connection_handler
+def getUserIdByUsername(cursor,username):
+
+    cursor.execute("""
+                    SELECT user_id
+                    FROM users
+                    WHERE username = %s;""",
+                   (username))
+
+    userId = cursor.fetchall()[0][0]
+
+    return userId

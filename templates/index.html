@@ -6,6 +6,9 @@
 </div>
 
 <div class="topnav">
+    {% if username %}
+    <p>{{username}}</p>
+    {% endif %}
     {% if not logged %}
     <a href="registration">Register</a>
     <a href="login">Login</a>
