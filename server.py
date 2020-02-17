@@ -316,9 +316,34 @@ def login():
 @app.route('/logout')
 def logout():
     # remove the username from the session if it's there
-    print(session)
     session.pop('username', None)
     return redirect(url_for('index'))
+
+@app.route('/users_list', methods=['GET','POST'])
+def users_list():
+
+    usersList = database_manager.getUsersList()
+    titles = ['ID','Email', 'Username']
+
+    return render_template('users_list.html', page_title = 'AskMate - Users List', usersList = usersList,
+                           titles = titles)
+
+@app.route('/user/<id>', methods=['GET','POST'])
+def user(id):
+
+    try:
+        id = int(id)
+    except ValueError:
+        return redirect('/')
+
+    userData = database_manager.getUserById(id)
+    page_title = 'AskMate - User ' + str(id)
+
+    if userData:
+
+        return render_template('user.html', userData=userData, page_title = page_title)
+
+    return redirect('/')
 
 if __name__ == "__main__":
     app.run(

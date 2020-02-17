@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="topnav">
+    <a href="/">Back to main page</a>
+    <a href="list">Go to question list</a>
+</div>
+
+{% if usersList %}
+        <table>
+            <tr>
+                {% for title in titles %}
+                <td><p style="padding: 10px 10px">{{title}}</p> </td>
+                {% endfor %}
+            </tr>
+                {% for user in usersList %}
+            <tr>
+                <td><a href="user/{{user[0]}}"><p style="padding: 10px 10px">{{user[0]}}</p></a></td>
+                <td><p style="padding: 10px 10px">{{user[1]}}</p></td>
+                <td><p style="padding: 10px 10px">{{user[2]}}</p></td>
+            </tr>
+                {% endfor %}
+        </table>
+        {% endif %}
+
+{% endblock %}

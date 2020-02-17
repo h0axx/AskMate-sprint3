@@ -258,14 +258,28 @@ def grab_password_from_db(cursor,username):
     return password
 
 @basic_db_usage.connection_handler
-def getUserIdByUsername(cursor,username):
+def getUsersList(cursor):
 
     cursor.execute("""
-                    SELECT user_id
+                    SELECT user_id,email,username
+                    FROM users;""")
+
+    usersList = cursor.fetchall()
+
+    return usersList
+
+@basic_db_usage.connection_handler
+def getUserById(cursor,id):
+
+    cursor.execute("""
+                    SELECT user_id,email,username
                     FROM users
-                    WHERE username = %s;""",
-                   (username))
+                    WHERE user_id = %s;""",
+                   (id,))
 
-    userId = cursor.fetchall()[0][0]
+    try:
+        userData = cursor.fetchall()[0]
+    except:
+        return False
 
-    return userId
+    return userData
