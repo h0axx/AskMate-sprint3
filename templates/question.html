@@ -3,21 +3,29 @@
 {% block body %}
 
 <div class="topnav">
-    <a href=/question/{{id}}/new-answer>Answer that question</a> <h3 style="text-align: center">{{ question[4] }}</h3>
+    <h3 style="text-align: center">{{ question[4] }}</h3>
 </div>
 
         <h4>{{ question[5] }}</h4>
 
 <div class="topnav">
-    <a href="/question/{{id}}/vote">Vote question</a>
-    <a href="/question/{{id}}/delete">Delete question</a>
     <a href="list">Back to questions list</a>
+    {% if logged %}
+    <a href=/question/{{id}}/new-answer>Answer that question</a>
+    <a href="/question/{{id}}/vote">Vote question</a>
+    {% endif %}
+    {% if questionAccess %}
+    <a href="/question/{{id}}/delete">Delete question</a>
+    {% endif %}
 </div>
 
 {% if answers %}
         <table>
                 {% for answer in answers %}
-            <tr><td><p>{{answer[1]}}<p></p>{{answer[4]}}&nbsp;&nbsp;&nbsp;&nbsp;<a id="answer-href" href="/answer/{{answer[0]}}">Edit</a></p></td></tr>
+            <tr><td><p>{{answer[1]}}<p></p>{{answer[4]}}&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% if answer[6] == userID %}
+                        <a id="answer-href" href="/answer/{{answer[0]}}">Edit</a></p></td></tr>
+                    {% endif %}
                 {% endfor %}
         </table>
         {% endif %}

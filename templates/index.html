@@ -9,13 +9,14 @@
     {% if username %}
     <p>{{username}}</p>
     {% endif %}
-    {% if not logged %}
+    {% if not username %}
     <a href="registration">Register</a>
     <a href="login">Login</a>
     {% endif %}
     <a href="list">Questions list</a>
     <a href="users_list">Users list</a>
-    {% if logged %}
+    {% if username %}
+    <a href="user/{{userID}}">User's profile</a>
     <a href="logout">Logout</a>
     {% endif %}
 </div>

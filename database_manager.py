@@ -87,16 +87,16 @@ def add_question(cursor,values):
 
     cursor.execute("""
                     INSERT INTO question 
-                    VALUES (%s,%s,%s,%s,%s,%s,%s) ;""",
-                   (values[0],values[1],values[2],values[3],values[4],values[5],values[6],))
+                    VALUES (%s,%s,%s,%s,%s,%s,%s,%s) ;""",
+                   (values[0],values[1],values[2],values[3],values[4],values[5],values[6],values[7],))
 
 @basic_db_usage.connection_handler
 def add_answer(cursor,values):
 
     cursor.execute("""
                     INSERT INTO answer
-                    VALUES (%s,%s,%s,%s,%s,%s) ;""",
-                   (values[0],values[1],values[2],values[3],values[4],values[5],))
+                    VALUES (%s,%s,%s,%s,%s,%s,%s) ;""",
+                   (values[0],values[1],values[2],values[3],values[4],values[5],values[6],))
 
 @basic_db_usage.connection_handler
 def sort_by_id(cursor):
@@ -192,8 +192,10 @@ def show_answer_by_id(cursor,answer_id):
                     SELECT * 
                     FROM answer
                     WHERE id = %s;""", [answer_id])
-
-    answer = cursor.fetchall()
+    try:
+        answer = cursor.fetchall()[0]
+    except:
+        return False
     return answer
 
 @basic_db_usage.connection_handler
@@ -283,3 +285,71 @@ def getUserById(cursor,id):
         return False
 
     return userData
+
+@basic_db_usage.connection_handler
+def getUserQuestions(cursor,userID):
+
+    cursor.execute("""
+                    SELECT id,title,message,submission_time,view_number,vote_number
+                    FROM question
+                    WHERE user_id = %s;""",
+                   (userID,))
+
+    try:
+        userQuestions = cursor.fetchall()
+    except:
+        return False
+
+    return userQuestions
+
+@basic_db_usage.connection_handler
+def getUserAnswers(cursor,id):
+
+    cursor.execute("""
+                    SELECT id,message,submission_time,vote_number,question_id
+                    FROM answer
+                    WHERE user_id = %s;""",
+                   (id,))
+
+    userAnswers = cursor.fetchall()
+
+    return userAnswers
+
+@basic_db_usage.connection_handler
+def getUserIDbyUsername(cursor,username):
+
+    cursor.execute("""
+                    SELECT user_id
+                    FROM users
+                    WHERE username = %s;""",
+                   (username,))
+
+    userID = cursor.fetchall()[0][0]
+
+    return userID
+
+@basic_db_usage.connection_handler
+def getQuestionOwner(cursor,id):
+
+    cursor.execute("""
+                    SELECT user_id
+                    FROM question
+                    WHERE id = %s;""",
+                   (id,))
+
+    questionOwner = cursor.fetchall()[0][0]
+
+    return questionOwner
+
+@basic_db_usage.connection_handler
+def getAnswerOwner(cursor,id):
+
+    cursor.execute("""
+                    SELECT user_id
+                    FROM answer
+                    WHERE id = %s;""",
+                   (id,))
+
+    answerOwner = cursor.fetchall()[0][0]
+
+    return answerOwner

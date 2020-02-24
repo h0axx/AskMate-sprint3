@@ -2,8 +2,59 @@
 
 {% block body %}
 
-{% if userData %}
-{{userData}}
-{% endif %}
+    <div class="topnav">
+        <a style="padding: 25px" href="index">Main page</a>
+        {% if userName %}
+            <h3 style="padding: 15px; text-align: center">{{userName}}</h3>
+        {% endif %}
+    </div>
+
+    {% if userQuestions %}
+        <h4 style="text-align: center"> User questions: </h4>
+            <table>
+                <tr>
+                    {% for title in questionTitles %}
+                        <td><p style="padding: 10px 10px">{{title}}</p> </td>
+                    {% endfor %}
+                </tr>
+
+                    {% for question in userQuestions %}
+                <tr>
+
+                        <td><a href="/question/{{question[0]}}"><p style="padding: 10px 10px">{{question[0]}}</p></a></td>
+
+                        {% for record in question[1::] %}
+                            <td><p style="padding: 10px 10px">{{record}}</p></td>
+                        {% endfor %}
+                </tr>
+                    {% endfor %}
+        </table>
+    {% endif %}
+
+    {% if userAnswers %}
+            <h4 style="text-align: center"> User answers: </h4>
+                <table>
+                    <tr>
+                        {% for title in answerTitles %}
+                            <td><p style="padding: 10px 10px">{{title}}</p> </td>
+                        {% endfor %}
+                    </tr>
+
+                        {% for answer in userAnswers %}
+                    <tr>
+
+                            <td><a href="/answer/{{answer[0]}}"><p style="padding: 10px 10px">{{answer[0]}}</p></a></td>
+
+                            {% for record in answer[1:4] %}
+                                <td><p style="padding: 10px 10px">{{record}}</p></td>
+                            {% endfor %}
+                        <td><a href="/question/{{answer[-1]}}"><p style="padding: 10px 10px">Go to question</p></a></td>
+
+                    </tr>
+                        {% endfor %}
+                </table>
+    {% endif %}
+
+<a class="href" style="width: 1168px" href="/users_list">Back to users list</a>
 
 {% endblock %}
